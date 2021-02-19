@@ -33,12 +33,17 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const user = store.state.User.user;
-
+ 
+  // store 状态变量中保存当前的用户
   if (!user) {
     await store.dispatch('User/setUser', users[0]);
+  }else if(to.fullPath.includes('/user/') & user.id != to.params.userId){
+    await store.dispatch('User/setUser', users[to.params.userId - 1]);
   }
-
-  const isAdmin = false;
+ 
+  // 得到用户的当前权限
+  const isAdmin = user?user.isAdmin:false;
+ 
   const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
 
   if (requiresAdmin && !isAdmin) next({ name: 'Home' });
