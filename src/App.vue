@@ -6,6 +6,11 @@
           Twotter
         </div>
       </router-link>
+      <router-link to="/admin">
+        <div class="navigation__admin">
+          Admin
+        </div>
+      </router-link>
       <div class="navigation__user" v-if="user">
         {{ user.username }}
       </div>
@@ -49,6 +54,10 @@ export default {
     color: white;
 
     .navigation__logo {
+      font-weight: bold;
+      font-size: 24px;
+    }
+    .navigation__admin {
       font-weight: bold;
       font-size: 24px;
     }
